@@ -1,0 +1,53 @@
+import { useState } from 'react';
+const SearchForm = ({ onSearch }) => {
+  const [searchStr, setSearchStr] = useState('');
+  const [searchOption, setSearchOption] = useState('shows');
+
+  const onSearchInputChange = ev => {
+    setSearchStr(ev.target.value);
+  };
+
+  const onRadioChange = ev => {
+    setSearchOption(ev.target.value);
+  };
+
+  const onSubmit = ev => {
+    ev.preventDefault();
+
+    const option = {
+      q: searchStr,
+      searchOption,
+    };
+
+    onSearch(option);
+  };
+
+  return (
+    <form onSubmit={onSubmit}>
+      <input type="text" value={searchStr} onChange={onSearchInputChange} />
+      <label>
+        shows
+        <input
+          type="radio"
+          checked={searchOption === 'shows'}
+          name="search-option"
+          value="shows"
+          onChange={onRadioChange}
+        />
+      </label>
+      <label>
+        Actors
+        <input
+          type="radio"
+          checked={searchOption === 'actors'}
+          name="search-option"
+          value="actors"
+          onChange={onRadioChange}
+        />
+      </label>
+      <button type="submit"> Search </button>
+    </form>
+  );
+};
+
+export default SearchForm;
